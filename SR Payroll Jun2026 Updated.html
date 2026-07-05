@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SR Payroll Jun2026 Updated — StayRehat</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1A2E3F;--navy2:#2E4A5F;--bg:#f4f6f9;--card:#fff;--border:#dde3ea;
+  --text:#1A2E3F;--muted:#6b7a8d;--faint:#9aa5b4;
+  --blue:#185FA5;--blue-bg:#E6F1FB;--blue-mid:#c2d9f5;
+  --green:#0F6E56;--green-bg:#e8f5e9;--green-border:#a5d6a7;
+  --danger:#C0392B;--danger-bg:#FDEDEB;
+  --warning-bg:#FFF8E1;--warning:#7B5E00;
+  --radius:10px;--radius-sm:6px;--shadow:0 1px 4px rgba(0,0,0,0.08)
+}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);font-size:14px;min-height:100vh}
+.app-header{background:var(--navy);color:#fff;padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:50px}
+.app-header h1{font-size:14px;font-weight:600;display:flex;align-items:center;gap:8px}
+.app-header h1 span{opacity:0.4;font-weight:400}
+.hbadge{background:rgba(255,255,255,0.15);padding:3px 10px;border-radius:20px;font-size:11px;font-weight:500}
+.tabs{background:#fff;border-bottom:1px solid var(--border);display:flex;padding:0 20px;overflow-x:auto}
+.tab{padding:11px 15px;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;flex-shrink:0}
+.tab.active{color:var(--blue);border-bottom-color:var(--blue)}
+.app-body{max-width:1080px;margin:0 auto;padding:18px 14px;display:grid;grid-template-columns:330px 1fr;gap:18px;align-items:start}
+@media(max-width:700px){.app-body{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:14px;box-shadow:var(--shadow)}
+.card+.card{margin-top:12px}
+.ctitle{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.slbl{font-size:10px;font-weight:700;color:var(--faint);text-transform:uppercase;letter-spacing:0.08em;margin:7px 0 4px}
+.field{margin-bottom:7px}
+.field label{display:flex;justify-content:space-between;font-size:12px;font-weight:500;margin-bottom:4px}
+.field label em{font-weight:400;color:var(--faint);font-size:10px;font-style:normal}
+.iwrap{display:flex;border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;background:#fff}
+.iwrap:focus-within{border-color:var(--blue);box-shadow:0 0 0 3px rgba(24,95,165,0.1)}
+.ipfx{padding:0 9px;font-size:11px;color:var(--muted);background:var(--bg);border-right:1px solid var(--border);line-height:32px;white-space:nowrap;flex-shrink:0}
+.iwrap input{flex:1;border:none;outline:none;padding:0 9px;font-size:13px;color:var(--text);height:32px;background:transparent}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
+select{width:100%;height:32px;border:1px solid var(--border);border-radius:var(--radius-sm);padding:0 8px;font-size:13px;color:var(--text);background:#fff;outline:none;margin-bottom:10px}
+select:focus{border-color:var(--blue)}
+.fixed-row{display:flex;justify-content:space-between;align-items:center;background:var(--blue-bg);border-radius:var(--radius-sm);padding:9px 12px;margin-bottom:10px;border:1px solid var(--blue-mid)}
+.fixed-row .fl{font-size:12px;font-weight:500;color:var(--blue)}
+.fixed-row .fv{font-size:14px;font-weight:700;color:var(--blue)}
+.tot-preview{background:var(--navy);border-radius:var(--radius-sm);padding:10px 12px;display:flex;justify-content:space-between;align-items:center;margin-top:4px}
+.tot-preview .tl{font-size:12px;color:rgba(255,255,255,0.65)}
+.tot-preview .tv{font-size:16px;font-weight:700;color:#fff}
+.btn{padding:7px 13px;border:1px solid var(--border);border-radius:var(--radius-sm);background:#fff;cursor:pointer;font-size:12px;color:var(--text);font-weight:500;transition:background 0.12s}
+.btn:hover{background:var(--bg)}
+.btn.primary{background:var(--navy);color:#fff;border-color:var(--navy)}
+.btn.green{background:var(--green);color:#fff;border-color:var(--green)}
+.btn.danger{background:var(--danger);color:#fff;border-color:var(--danger)}
+.savebar{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+.inc-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px 8px;margin-bottom:4px}
+.inc-field{margin-bottom:0}
+.inc-field label{font-size:11px;font-weight:500;color:var(--muted);margin-bottom:2px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.inc-field .iwrap input{height:28px;font-size:12px}
+.inc-field .iwrap{border-radius:4px}
+.inc-field .ipfx{line-height:28px;font-size:10px;padding:0 6px}
+/* SLIP */
+.slip{border-radius:var(--radius);overflow:hidden;background:#fff;box-shadow:var(--shadow)}
+.slip-hdr{padding:16px 18px;display:flex;justify-content:space-between;align-items:flex-start;background:var(--blue-bg);border-bottom:2px solid var(--blue-mid)}
+.slip-logo{font-size:10px;font-weight:700;letter-spacing:0.1em;color:var(--navy);text-transform:uppercase;opacity:0.55;margin-bottom:3px}
+.slip-company{font-size:14px;font-weight:700;color:var(--navy)}
+.slip-sub{font-size:11px;color:var(--muted);margin-top:1px}
+.slip-badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:10px;font-weight:700;background:var(--blue);color:#fff;margin-top:7px;letter-spacing:0.06em}
+.sright{text-align:right}
+.sright .plbl{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em}
+.sright .pval{font-size:15px;font-weight:700;color:var(--navy);margin-top:1px}
+.sright .sref{font-size:10px;color:var(--faint);margin-top:3px}
+.emp-band{padding:9px 18px;background:#f8faff;border-bottom:1px solid var(--border);display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.ef .el{color:var(--faint);font-size:10px;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:1px}
+.ef .ev{font-weight:600;color:var(--text);font-size:12px}
+.ef .ev.acc{color:var(--blue)}
+.earnings{padding:11px 18px}
+.etable{width:100%;border-collapse:collapse}
+.etable th{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--faint);padding:0 0 6px;border-bottom:1px solid var(--border)}
+.etable th:last-child{text-align:right}
+.etable td{padding:4px 0;border-bottom:1px solid #f3f3f3;font-size:12px;line-height:1.3}
+.etable td:last-child{text-align:right;font-weight:500}
+.cat-row td{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:0.07em;color:var(--faint);padding-top:10px;padding-bottom:2px;border-bottom:none}
+.ftag{font-size:9px;background:#e8f4ff;color:var(--blue);padding:1px 6px;border-radius:20px;margin-left:5px;font-weight:700}
+.zero{color:#ccc}
+.pos{color:var(--green);font-weight:600}
+.neg-v{color:var(--danger)}
+.slip-tots{padding:9px 18px;background:#f9fbff;border-top:1px solid var(--border)}
+.sub-row{display:flex;justify-content:space-between;font-size:11px;padding:3px 0;border-bottom:1px dashed #eee}
+.sub-row .sl{color:var(--muted)}
+.sub-row .sv{font-weight:600}
+.grand-row{display:flex;justify-content:space-between;align-items:center;background:var(--navy);border-radius:var(--radius-sm);padding:9px 14px;margin-top:7px}
+.grand-row .gl{font-size:12px;color:rgba(255,255,255,0.65)}
+.grand-row .gv{font-size:17px;font-weight:700;color:#fff}
+.slip-footer{padding:10px 18px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:#fafcff}
+.apv-block{display:flex;align-items:center;gap:10px}
+.apv-icon{width:34px;height:34px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;flex-shrink:0}
+.apv-title{font-size:12px;font-weight:600;color:#2e7d32}
+.apv-sub{font-size:10px;color:var(--muted);margin-top:1px}
+/* YEARLY */
+.yr-wrap{overflow-x:auto}
+.yrtbl{width:100%;border-collapse:collapse;font-size:11px;min-width:920px}
+.yrtbl th{background:var(--navy);color:#fff;padding:6px 7px;font-size:10px;font-weight:600;text-align:right;white-space:nowrap;border:1px solid var(--navy2)}
+.yrtbl th:first-child{text-align:left;min-width:82px}
+.yrtbl td{padding:5px 7px;border:1px solid #eee;text-align:right;font-size:11px}
+.yrtbl td:first-child{text-align:left;font-weight:600;background:#f8f9fb}
+.yrtbl tr:hover td{background:#f0f4ff}
+.yrtbl .zc{color:#ccc}
+.yrtbl .tot-row td{background:var(--navy);color:#fff;font-weight:700;border-color:var(--navy2)}
+.yrtbl .tot-row td:first-child{background:var(--navy)}
+.no-data{text-align:center;padding:40px;color:var(--faint);font-size:13px}
+/* pool / other */
+.pool-row{display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:1px dashed #eee}
+.pl{color:var(--muted)}.pv{font-weight:600}.pv.neg{color:var(--danger)}.pv.pos{color:var(--green)}
+.spills{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.spill{padding:5px 13px;border:1px solid var(--border);border-radius:20px;font-size:12px;cursor:pointer;background:#fff;font-weight:500}
+/* info box */
+.info-box{background:#fffbea;border:1px solid #f0e0a0;border-radius:var(--radius-sm);padding:11px 13px;font-size:12px;color:#5a4200;line-height:1.7;margin-top:12px}
+.info-box strong{color:#3a2c00}
+/* PRINT */
+@media print{
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  @page{size:A4 portrait;margin:8mm 10mm}
+  body{background:#fff;font-size:11px}
+  .no-print,.tabs,.left-col,.savebar,.print-bar{display:none!important}
+  .app-header{height:34px;padding:0 12px;background:var(--navy)!important}
+  .app-header h1{font-size:11px}
+  .app-body{grid-template-columns:1fr!important;padding:0;max-width:100%}
+  .slip{box-shadow:none;border:1px solid #ddd;border-radius:6px}
+  .slip-hdr{padding:10px 14px;background:var(--blue-bg)!important}
+  .emp-band{padding:6px 14px;background:#f8faff!important}
+  .earnings{padding:7px 14px}
+  .etable td{padding:3px 0;font-size:11px}
+  .cat-row td{padding-top:7px;padding-bottom:1px}
+  .slip-tots{padding:6px 14px;background:#f9fbff!important}
+  .grand-row{padding:7px 12px;background:var(--navy)!important}
+  .grand-row .gv{font-size:14px}
+  .slip-footer{padding:7px 14px;background:#fafcff!important}
+  .apv-icon{background:var(--green)!important}
+  .yr-wrap{overflow:visible}
+  .yrtbl{min-width:auto;font-size:9px}
+  .yrtbl th,.yrtbl td{padding:3px 5px}
+  .yrtbl th{background:var(--navy)!important}
+  .yrtbl .tot-row td{background:var(--navy)!important}
+}
+</style>
+</head>
+<body>
+
+<div class="app-header">
+  <h1>StayRehat <span>·</span> SR Payroll Jun2026 <span style="font-size:11px;opacity:0.6;font-weight:400">Updated — AZR+2% · IR 13% · Huda 12%</span></h1>
+  <span class="hbadge" id="hdr-period">—</span>
+</div>
+
+<div class="tabs no-print">
+  <div class="tab active" onclick="switchTab('ema')">📋 Ema's Slip</div>
+  <div class="tab" onclick="switchTab('yearly')">📅 Yearly Statement</div>
+  <div class="tab" onclick="switchTab('other')">👥 Other Staff</div>
+  <div class="tab" onclick="switchTab('lhdn')">📄 LHDN / Annual</div>
+  <div class="tab" onclick="switchTab('settings')">⚙️ Settings</div>
+</div>
+
+<div class="app-body">
+  <div class="left-col no-print">
+
+    <!-- EMA -->
+    <div id="tab-ema">
+      <div class="card">
+        <div class="ctitle">📅 Pay period</div>
+        <div class="two-col">
+          <div class="field"><label>Month</label>
+            <select id="sel-month"><option>January</option><option>February</option><option>March</option><option>April</option><option>May</option><option>June</option><option>July</option><option>August</option><option>September</option><option>October</option><option>November</option><option>December</option></select></div>
+          <div class="field"><label>Year</label>
+            <select id="sel-year"><option>2023</option><option>2024</option><option>2025</option><option selected>2026</option><option>2027</option></select></div>
+        </div>
+      </div>
+      <div class="card" style="background:#1e3a52;border-color:#2a4f6e">
+        <div class="ctitle" style="color:#7fb3d4;border-bottom-color:#2a4f6e">📊 Monthly business figures <em style="font-weight:400;font-size:10px;color:#5a90b0;text-transform:none;letter-spacing:0">&nbsp;— drives profit share &amp; management pay</em></div>
+        <div class="field">
+          <label style="color:#a8cce0">Gross income <em style="color:#5a90b0">total room rental this month</em></label>
+          <div class="iwrap" style="background:#142b3e;border-color:#2a4f6e"><span class="ipfx" style="background:#0f2030;border-right-color:#2a4f6e;color:#7fb3d4">RM</span><input type="number" id="inp-gross" value="15000" min="0" style="color:#e8f4fd;background:transparent"></div>
+        </div>
+        <div class="field">
+          <label style="color:#a8cce0">Operating expenses <em style="color:#5a90b0">from expense ledger</em></label>
+          <div class="iwrap" style="background:#142b3e;border-color:#2a4f6e"><span class="ipfx" style="background:#0f2030;border-right-color:#2a4f6e;color:#7fb3d4">RM</span><input type="number" id="inp-ops" value="5868.87" min="0" style="color:#e8f4fd;background:transparent"></div>
+        </div>
+        <div id="net-pool-preview" style="display:flex;justify-content:space-between;align-items:center;background:#0f2030;border-radius:var(--radius-sm);padding:7px 11px;border:1px solid #2a4f6e;margin-bottom:2px;font-size:12px">
+          <span style="color:#5a90b0">Net Pool = Gross &minus; Expenses &minus; Basic</span>
+          <span id="net-pool-val" style="font-weight:700;color:#5bc4f5">&mdash;</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ctitle">💰 Salary components</div>
+        <div class="slbl">Basic salary</div>
+        <div class="field">
+          <label>Gaji Ema Basic Salary <em>editable — enter current month's basic</em></label>
+          <div class="iwrap"><span class="ipfx">RM</span><input type="number" id="inp-basic" value="2700" min="0" step="50"></div>
+        </div>
+        <div class="field">
+          <label>Staff deduction (paid to Erzwan) <em>fixed monthly</em></label>
+          <div class="iwrap"><span class="ipfx">RM</span><input type="number" id="inp-deduct" value="1000" min="0" step="50"></div>
+        </div>
+        <div class="slbl">Variable incentives</div>
+        <div id="incentive-fields"></div>
+        <div class="slbl">Performance</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;background:var(--green-bg);border-radius:var(--radius-sm);padding:6px 10px;margin-bottom:5px;border:1px solid var(--green-border)">
+          <div>
+            <div style="font-size:12px;font-weight:600;color:var(--green)">5% Profit Sharing</div>
+            <div style="font-size:10px;color:var(--muted);margin-top:1px">Auto: Net Pool × 5%  (effective May 2026)</div>
+          </div>
+          <div id="profit-auto-val" style="font-size:15px;font-weight:700;color:var(--green)">RM 0.00</div>
+        </div>
+        <div class="slbl">Lain-lain (others)</div>
+        <div class="field">
+          <label>Description <em>bonus, tolak, dll.</em></label>
+          <div class="iwrap"><input type="text" id="inp-lain-desc" placeholder="e.g. Bonus khas / Tolak pendahuluan"></div>
+        </div>
+        <div class="field">
+          <label>Amount &amp; type</label>
+          <div style="display:flex;gap:6px">
+            <select id="inp-lain-type" style="width:100px;margin:0;flex-shrink:0"><option value="1">+ Income</option><option value="-1">− Deduct</option></select>
+            <div class="iwrap" style="flex:1"><span class="ipfx">RM</span><input type="number" id="inp-lain-amt" value="0" min="0" step="0.01"></div>
+          </div>
+        </div>
+        <div class="tot-preview">
+          <span class="tl">Total — <span id="prev-period">—</span></span>
+          <span class="tv" id="prev-total">RM 0.00</span>
+        </div>
+      </div>
+      <div class="savebar">
+        <button class="btn green" style="flex:1" onclick="saveMonth()">💾 Save this month</button>
+        <button class="btn primary" onclick="window.print()">🖨 Print / PDF</button>
+        <button class="btn" onclick="clearForm()" title="Reset amounts">↺</button>
+      </div>
+      <div id="save-fb" style="margin-top:6px;font-size:11px"></div>
+    </div>
+
+    <!-- YEARLY -->
+    <div id="tab-yearly" style="display:none">
+      <div class="card">
+        <div class="ctitle">📅 Yearly statement</div>
+        <div class="field"><label>Year to view</label>
+          <select id="sel-yr-view" onchange="this.dataset.userSet=true;renderYearly()"><option>2023</option><option>2024</option><option>2025</option><option selected>2026</option><option>2027</option></select></div>
+        <div id="yr-summary"></div>
+        <div class="savebar" style="margin-top:10px">
+          <button class="btn primary" onclick="window.print()" style="flex:1">🖨 Print / PDF</button>
+          <button class="btn danger" onclick="clearYear()">🗑 Clear year</button>
+        </div>
+      </div>
+      <div class="info-box">
+        <strong>💡 How to back up or share data</strong><br>
+        All data is saved on <em>this computer only</em>.<br><br>
+        <strong>To back up:</strong> Go to ⚙️ Settings → click <em>Export backup</em>. Save the file somewhere safe (USB, Google Drive, email to yourself).<br><br>
+        <strong>To restore on another computer:</strong> Open this HTML file on that computer → ⚙️ Settings → click <em>Import backup</em> → pick the file you exported.
+      </div>
+    </div>
+
+    <!-- OTHER STAFF -->
+    <div id="tab-other" style="display:none">
+      <div class="card">
+        <div class="ctitle">Management pool inputs</div>
+        <div style="background:#fffbea;border:1px solid #f0e0a0;border-radius:var(--radius-sm);padding:8px 11px;font-size:11px;color:#5a4200;margin-bottom:10px">
+          💡 Gross income &amp; expenses are entered in <strong>Ema's Slip</strong> tab — this tab reads from those automatically.
+        </div>
+        <div class="slbl">AZR marketing</div>
+        <div class="field"><label>Total messages this month <em>actual count, not average</em></label><div class="iwrap"><span class="ipfx">msgs</span><input type="number" id="inp-msgs" value="600" min="0"></div></div>
+        <div class="field"><label>AZR paid rooms</label><div class="iwrap"><span class="ipfx">Rooms</span><input type="number" id="inp-azrrooms" value="70" min="0"></div></div>
+        <div class="slbl">Occupancy (from Monthly Summary sheet)</div>
+        <div class="field">
+          <label>Occupancy % this month <em>copy from your Monthly Summary</em></label>
+          <div style="display:flex;align-items:center;border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;background:#fff">
+            <input type="number" id="inp-occ-pct" value="17.1" min="0" max="100" step="0.1" style="flex:1;border:none;outline:none;padding:0 9px;font-size:13px;height:34px;background:transparent">
+            <span style="padding:0 10px;font-size:12px;color:var(--muted);background:var(--bg);border-left:1px solid var(--border);line-height:34px">%</span>
+          </div>
+        </div>
+        <div style="background:#f0f4ff;border:1px solid var(--blue-mid);border-radius:var(--radius-sm);padding:7px 11px;font-size:12px;display:flex;justify-content:space-between;margin-top:2px">
+          <span style="color:var(--muted)">Tier → IR Occupancy Bonus</span>
+          <span id="occ-tier-val" style="font-weight:700;color:var(--blue)">—</span>
+        </div>
+      </div>
+      <div class="card"><div class="ctitle">Pool breakdown</div><div id="pool-rows"></div></div>
+      <div style="margin-top:12px;font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px">Select staff</div>
+      <div class="spills" id="staff-pills"></div>
+      <div style="margin-top:12px;padding:8px 10px;background:var(--blue-bg);border:1px solid var(--blue-mid);border-radius:var(--radius-sm);font-size:12px;color:var(--blue)">
+        Saving records for: <strong id="other-period-display">—</strong>
+      </div>
+      <div class="savebar" style="margin-top:8px">
+        <button class="btn green" style="flex:1" onclick="saveOtherStaffMonth()">💾 Save AZR + IR + NEH + Huda this month</button>
+      </div>
+      <div id="other-save-fb" style="margin-top:6px;font-size:12px;font-weight:500"></div>
+    </div>
+
+    <!-- LHDN -->
+    <div id="tab-lhdn" style="display:none">
+      <div class="card">
+        <div class="ctitle">📄 Annual earnings statement — LHDN</div>
+        <div class="field"><label>Year</label>
+          <select id="sel-lhdn-yr" onchange="this.dataset.userSet=true;g('slip-area').innerHTML='<div class=&quot;card&quot; style=&quot;text-align:center;padding:24px 20px&quot;><div style=&quot;font-size:28px;margin-bottom:10px&quot;>📄</div><div style=&quot;font-size:14px;font-weight:600;color:var(--navy);margin-bottom:12px&quot;>Year changed — click Generate to refresh</div><button class=&quot;btn green&quot; onclick=&quot;renderLhdn()&quot; style=&quot;font-size:13px;padding:9px 22px&quot;>Generate Statement</button></div>';"><option>2023</option><option>2024</option><option>2025</option><option selected>2026</option><option>2027</option></select></div>
+        <div class="field"><label>Staff member</label>
+          <select id="sel-lhdn-staff">
+            <option value="Hazemah">Hazemah bte Maksud (Ema)</option>
+            <option value="AZR">AZR — Marketing Manager</option>
+            <option value="IR">IR — General Manager</option>
+            <option value="NEH">NEH — Financial Manager</option>
+            <option value="Erzwan">Erzwan — Staff (from Ema's basic)</option>
+            <option value="HUDA">Huda — Staff</option>
+          </select>
+        </div>
+        <button class="btn primary" onclick="renderLhdn()" style="width:100%;margin-top:4px">Generate Statement</button>
+      </div>
+      <div class="info-box">
+        <strong>📋 For LHDN EA Form:</strong><br>
+        This statement shows each staff member's monthly and annual earnings. Use it to fill in <strong>Borang EA</strong> for each employee by end of February each year.<br><br>
+        <strong>Note:</strong> Make sure you click <em>💾 Save this month</em> in both Ema's Slip and Other Staff tabs each month — otherwise the annual totals will be incomplete.
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div id="tab-settings" style="display:none">
+      <div class="card">
+        <div class="ctitle">🏦 Bank details</div>
+        <div class="field"><label>Full name (as per bank)</label><div class="iwrap"><input type="text" id="set-fullname" value="Hazemah bte Maksud"></div></div>
+        <div class="field"><label>IC No.</label><div class="iwrap"><input type="text" id="set-ic" placeholder="e.g. 820101-14-5678"></div></div>
+        <div class="field"><label>Bank</label><div class="iwrap"><input type="text" id="set-bank" value="Maybank Berhad"></div></div>
+        <div class="field"><label>Account number</label><div class="iwrap"><input type="text" id="set-accno" placeholder="e.g. 1234 5678 9012"></div></div>
+        <div class="field"><label>Type</label><select id="set-acctype"><option>Savings</option><option>Current</option></select></div>
+        <div class="slbl">Company</div>
+        <div class="field"><label>Company</label><div class="iwrap"><input type="text" id="set-company" value="Amaranthus Holding"></div></div>
+        <div class="field"><label>Property</label><div class="iwrap"><input type="text" id="set-property" value="StayRehat"></div></div>
+        <div class="field"><label>Approved by</label><div class="iwrap"><input type="text" id="set-approver" value="NEH — Financial Manager"></div></div>
+        <div class="field"><label>Processed by</label><div class="iwrap"><input type="text" id="set-processor" value="NEH — Financial Manager"></div></div>
+        <button class="btn green" onclick="saveSettings()" style="width:100%;margin-top:4px">✔ Save settings</button>
+        <div id="settings-fb" style="margin-top:6px;font-size:11px"></div>
+      </div>
+      <div class="card" style="margin-top:12px">
+        <div class="ctitle">💾 Backup &amp; restore</div>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.6">
+          All salary records are saved on this computer. Export a backup file regularly — keep it on a USB drive or email it to yourself.
+        </p>
+        <div class="savebar">
+          <button class="btn green" style="flex:1" onclick="exportData()">⬇ Export backup</button>
+          <button class="btn primary" style="flex:1" onclick="importData()">⬆ Import backup</button>
+        </div>
+        <input type="file" id="import-file" accept=".json" style="display:none" onchange="handleImport(event)">
+        <div id="backup-fb" style="margin-top:8px;font-size:11px"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: slip -->
+  <div id="slip-area"></div>
+</div>
+
+<script>
+const INCENTIVES=[
+  {id:"bbq1",label:"BBQ1 Incentive"},{id:"bbq2",label:"BBQ2 Incentive"},
+  {id:"karaoke",label:"Karaoke Incentive"},{id:"skrin",label:"Skrin Incentive"},
+  {id:"toto",label:"Toto Incentive"},{id:"majlis",label:"Majlis Incentive"},
+  {id:"dobi",label:"Dobi EMA Incentive"},{id:"bilik",label:"Bil Bilik Incentive"},
+  {id:"positif",label:"Positif Comments"},
+];
+const MONTHS=["January","February","March","April","May","June","July","August","September","October","November","December"];
+const OTHER_STAFF=[
+  {key:"AZR",name:"AZR",role:"Marketing Manager",badge:"#854F0B",bg:"#FAEEDA",border:"#BA7517",text:"#633806"},
+  {key:"IR",name:"IR",role:"General Manager",badge:"#534AB7",bg:"#EEEDFE",border:"#7F77DD",text:"#26215C"},
+  {key:"NEH",name:"NEH",role:"Financial Manager",badge:"#0F6E56",bg:"#E1F5EE",border:"#1D9E75",text:"#085041"},
+  {key:"HUDA",name:"Huda",role:"Staff",badge:"#C2185B",bg:"#FCE4EC",border:"#F48FB1",text:"#880E4F"},
+  {key:"PL",name:"P&L",role:"StayRehat Net Profit / Loss",badge:"#37474F",bg:"#ECEFF1",border:"#90A4AE",text:"#263238"},
+];
+
+let activeTab="ema", activeOtherSlip=null, emaSlipView="original";
+const g=id=>document.getElementById(id);
+const gv=id=>parseFloat(g(id).value)||0;
+const gs=id=>g(id).value.trim();
+const rm=v=>"RM "+Math.abs(v).toLocaleString("en-MY",{minimumFractionDigits:2,maximumFractionDigits:2});
+const storeKey=(yr,mo)=>yr+"-"+String(MONTHS.indexOf(mo)+1).padStart(2,"0");
+
+// Build incentive fields
+g("incentive-fields").innerHTML=
+  '<div class="inc-grid">'+
+  INCENTIVES.map(i=>
+    `<div class="inc-field">
+      <label title="${i.label}">${i.label.replace(" Incentive","").replace(" Comments","")}</label>
+      <div class="iwrap"><span class="ipfx">RM</span>
+      <input type="number" id="inp-${i.id}" value="0" min="0" step="0.01"></div>
+    </div>`
+  ).join("")+
+  '</div>';
+
+// -- Storage --------------------------------------------------
+function loadMonth(yr,mo){
+  try{const d=localStorage.getItem(storeKey(yr,mo));return d?JSON.parse(d):null}catch{return null}
+}
+function saveMonth(){
+  const mo=gs("sel-month"),yr=gs("sel-year"),e=calcEma();
+  // Save Ema's full (original) record
+  const data={basic:e.basic,profit:e.profit,gross:gv("inp-gross"),ops:gv("inp-ops"),
+    lainNet:e.lainNet,lainDesc:e.lainDesc,total:e.origTotal,deduct:e.deduct,emaBasic:e.emaBasic,emaTotal:e.emaTotal};
+  INCENTIVES.forEach(i=>data[i.id]=gv("inp-"+i.id));
+  localStorage.setItem(storeKey(yr,mo),JSON.stringify(data));
+  // Save Erzwan's record
+  const ezData={role:"Staff",amount:e.deduct,total:e.deduct,year:yr,month:mo};
+  localStorage.setItem("sr_erzwan_"+storeKey(yr,mo),JSON.stringify(ezData));
+  g("save-fb").innerHTML=`<span style="color:var(--green)">✓ ${mo} ${yr} saved — Ema &amp; Erzwan records stored</span>`;
+  setTimeout(()=>{g("save-fb").innerHTML=""},3500);
+  render();
+}
+function clearYear(){
+  const yr=gs("sel-yr-view");
+  if(!confirm("Delete all saved records for "+yr+"?"))return;
+  MONTHS.forEach(mo=>localStorage.removeItem(storeKey(yr,mo)));
+  render();
+}
+
+// -- Settings -------------------------------------------------
+function loadSettings(){try{const s=localStorage.getItem("sr_settings");return s?JSON.parse(s):null}catch{return null}}
+function getSettings(){
+  const s=loadSettings();
+  return s||{fullname:gs("set-fullname"),ic:gs("set-ic"),bank:gs("set-bank"),
+    accno:gs("set-accno"),acctype:gs("set-acctype"),company:gs("set-company"),
+    property:gs("set-property"),approver:gs("set-approver"),processor:gs("set-processor")};
+}
+function saveSettings(){
+  const s={fullname:gs("set-fullname"),ic:gs("set-ic"),bank:gs("set-bank"),
+    accno:gs("set-accno"),acctype:gs("set-acctype"),company:gs("set-company"),
+    property:gs("set-property"),approver:gs("set-approver"),processor:gs("set-processor")};
+  localStorage.setItem("sr_settings",JSON.stringify(s));
+  g("settings-fb").innerHTML=`<span style="color:var(--green)">✓ Settings saved</span>`;
+  setTimeout(()=>{g("settings-fb").innerHTML=""},2500);
+  render();
+}
+
+// -- Export / Import -------------------------------------------
+function exportData(){
+  const all={};
+  for(let i=0;i<localStorage.length;i++){
+    const k=localStorage.key(i);
+    if(k.startsWith("sr_")){try{all[k]=JSON.parse(localStorage.getItem(k))}catch{all[k]=localStorage.getItem(k)}}
+  }
+  const blob=new Blob([JSON.stringify(all,null,2)],{type:"application/json"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="StayRehat_Backup_"+new Date().toISOString().slice(0,10)+".json";
+  a.click();
+  g("backup-fb").innerHTML=`<span style="color:var(--green)">✓ Backup file downloaded — save it somewhere safe</span>`;
+  setTimeout(()=>{g("backup-fb").innerHTML=""},4000);
+}
+function importData(){g("import-file").click();}
+function handleImport(e){
+  const file=e.target.files[0];if(!file)return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    try{
+      const data=JSON.parse(ev.target.result);
+      let n=0;
+      Object.entries(data).forEach(([k,v])=>{localStorage.setItem(k,typeof v==="string"?v:JSON.stringify(v));n++;});
+      g("backup-fb").innerHTML=`<span style="color:var(--green)">✓ Imported ${n} records successfully</span>`;
+      // Restore settings fields
+      const sv=loadSettings();
+      if(sv){["fullname","ic","bank","accno","acctype","company","property","approver","processor"].forEach(k=>{if(g("set-"+k)&&sv[k]!=null)g("set-"+k).value=sv[k];});}
+      render();
+    }catch{g("backup-fb").innerHTML=`<span style="color:var(--danger)">✗ Could not read file — use a file exported from this app</span>`;}
+  };
+  r.readAsText(file);e.target.value="";
+}
+
+// -- Calcs -----------------------------------------------------
+// Cutoff: profit sharing and AZR/IR/NEH only effective from May 2026
+function isBeforeMay2026(yr,mo){
+  const y=parseInt(yr),mIdx=MONTHS.indexOf(mo);
+  return y<2026||(y===2026&&mIdx<4);
+}
+
+function calcEma(){
+  const basic=gv("inp-basic")||2700;
+  const deduct=Math.min(gv("inp-deduct")||1000, basic); // Erzwan fixed amount
+  const incs=INCENTIVES.reduce((s,i)=>s+gv("inp-"+i.id),0);
+  const netPool=gv("inp-gross")-gv("inp-ops")-basic;
+  const mo=gs("sel-month"),yr=gs("sel-year");
+  const profit=isBeforeMay2026(yr,mo)?0:Math.max(0,netPool*0.05);
+  const lainAmt=gv("inp-lain-amt"),lainType=parseFloat(g("inp-lain-type").value)||1;
+  const lainNet=lainAmt*lainType,lainDesc=gs("inp-lain-desc")||"Lain-lain";
+  const emaBasic=basic-deduct;           // Ema's basic after deduction
+  const emaTotal=emaBasic+incs+profit+lainNet;
+  const origTotal=basic+incs+profit+lainNet;
+  return{basic,deduct,emaBasic,incs,profit,netPool,lainNet,lainDesc,
+    emaTotal,origTotal,total:origTotal,
+    breakdown:INCENTIVES.map(i=>({label:i.label,id:i.id,val:gv("inp-"+i.id)}))};
+}
+// -- Other staff storage --------------------------------------
+function staffKey(key,yr,mo){return"sr_staff_"+key+"_"+yr+"-"+String(MONTHS.indexOf(mo)+1).padStart(2,"0")}
+function loadStaffMonth(key,yr,mo){try{const d=localStorage.getItem(staffKey(key,yr,mo));return d?JSON.parse(d):null}catch{return null}}
+
+function saveOtherStaffMonth(){
+  const mo=gs("sel-month"),yr=gs("sel-year");
+  if(!mo||!yr){alert("Please select a month and year first (set it in Ema\'s Slip tab).");return;}
+  const c=calcOther();
+  const before=isBeforeMay2026(yr,mo);
+  const records={
+    AZR:{role:"Marketing Manager",base:before?0:500,compA:before?0:c.azrA,compB:before?0:c.azrB,total:before?0:c.azrTotal},
+    IR: {role:"General Manager", mgmtShare:before?0:Math.max(0,c.irShare),occBonus:before?0:c.occB,total:before?0:c.irTotal},
+    NEH:{role:"Financial Manager",mgmtShare:before?0:Math.max(0,c.nehShare),total:before?0:c.nehTotal},
+  };
+  let saved=0;
+  Object.entries(records).forEach(([k,data])=>{
+    try{
+      localStorage.setItem(staffKey(k,yr,mo),JSON.stringify({...data,year:yr,month:mo}));
+      saved++;
+    }catch(e){console.error("Save failed for",k,e);}
+  });
+  const fb=document.getElementById("other-save-fb");
+  if(fb){
+    if(saved===3){
+      fb.innerHTML=`<span style="color:var(--green)">✓ AZR, IR &amp; NEH saved for ${mo} ${yr}. Go to LHDN/Annual tab to view.</span>`;
+    } else {
+      fb.innerHTML=`<span style="color:var(--danger)">⚠ Only ${saved}/3 saved. Check browser storage is not full.</span>`;
+    }
+    setTimeout(()=>{fb.innerHTML=""},5000);
+  }
+}
+
+function calcOther(){
+  const gross=gv("inp-gross"),ops=gv("inp-ops"),
+    msgsday=gv("inp-msgs"),azrrooms=gv("inp-azrrooms");
+  const basic=gv("inp-basic")||2700;
+  const netPool=gross-ops-basic,msgsMonth=msgsday;
+  const mo=gs("sel-month"),yr=gs("sel-year");
+  const before=isBeforeMay2026(yr,mo);
+  const azrA=before?0:Math.max(0,(msgsMonth-300)*0.5);
+  const azrB=before?0:azrrooms;
+  const azrProfit=before?0:Math.max(0,netPool*0.02);  // 2% profit share on Net Pool
+  const azrTotal=before?0:(500+azrA+azrB+azrProfit);
+  const occ=gv("inp-occ-pct");
+  const baki=netPool-azrTotal;
+  // IR: RM100 base + 13% of Net Pool (direct)
+  const irShare=before?0:netPool*0.13;
+  const irTotal=before?0:(100+Math.max(0,irShare));
+  // NEH: unchanged — 15% of Baki Pool
+  const nehShare=before?0:baki*0.15;
+  const nehTotal=before?0:Math.max(0,nehShare);
+  // Huda: RM100 base + 12% of Net Pool
+  const hudaShare=before?0:netPool*0.12;
+  const hudaTotal=before?0:(100+Math.max(0,hudaShare));
+  return{netPool,msgsMonth,azrA,azrB,azrProfit,azrTotal,baki,occ,before,
+    irTotal,irShare,nehTotal,nehShare,hudaTotal,hudaShare};
+}
+
+// -- Tabs ------------------------------------------------------
+function switchTab(t){
+  activeTab=t;
+  ["ema","yearly","other","lhdn","settings"].forEach((id,i)=>{
+    g("tab-"+id).style.display=id===t?"block":"none";
+    document.querySelectorAll(".tab")[i].classList.toggle("active",id===t);
+  });
+  render();
+}
+
+// -- Render ----------------------------------------------------
+function render(){
+  const mo=gs("sel-month"),yr=gs("sel-year"),period=mo+" "+yr;
+  const e=calcEma(),c=calcOther(),s=getSettings();
+  g("hdr-period").textContent=period;
+  if(g("prev-period"))g("prev-period").textContent=period;
+  if(g("prev-total"))g("prev-total").textContent=rm(e.origTotal||e.total);
+  // Only auto-sync yearly/LHDN year selector on FIRST render (when still at default 2026)
+  // After that, user can freely change to 2023/2024/2025/2026 independently
+  if(g("sel-yr-view")&&!g("sel-yr-view").dataset.userSet) g("sel-yr-view").value=yr;
+  if(g("sel-lhdn-yr")&&!g("sel-lhdn-yr").dataset.userSet) g("sel-lhdn-yr").value=yr;
+  if(g("net-pool-val")){
+    const np=e.netPool;
+    g("net-pool-val").textContent=np<0?"−"+rm(Math.abs(np)):rm(np);
+    g("net-pool-val").style.color=np<0?"var(--danger)":"var(--blue)";
+  }
+  if(g("profit-auto-val")){
+    const _mo=gs("sel-month"),_yr=gs("sel-year");
+    g("profit-auto-val").textContent=isBeforeMay2026(_yr,_mo)?"Not applicable before May 2026":rm(e.profit);
+    g("profit-auto-val").style.color=isBeforeMay2026(_yr,_mo)?"var(--faint)":"var(--green)";
+  }
+  if(g("occ-tier-val")){
+    const c2=calcOther();
+    const tierLabel=c2.occ>=60?"≥60% → RM 240":c2.occ>=50?"50–59% → RM 160":c2.occ>=40?"40–49% → RM 80":"<40% → RM 0 (no bonus)";
+    g("occ-tier-val").textContent=tierLabel;
+    g("occ-tier-val").style.color=c2.occB>0?"var(--green)":"var(--faint)";
+  }
+  if(activeTab==="ema")    renderEmaSlip(e,s,period,mo,yr);
+  else if(activeTab==="yearly") renderYearly();
+  else if(activeTab==="other")  {
+    const pd=g("other-period-display");
+    if(pd) pd.textContent=period;
+    renderOtherTab(c,s,mo,yr);
+  }
+  else if(activeTab==="lhdn") {
+    // LHDN tab: show prompt if slip-area is empty or has the settings message
+    const sa=g("slip-area");
+    if(!sa.querySelector('.slip')&&!sa.querySelector('.yrtbl')){
+      sa.innerHTML=`<div class="card" style="text-align:center;padding:32px 20px">
+        <div style="font-size:32px;margin-bottom:12px">📄</div>
+        <div style="font-size:15px;font-weight:600;color:var(--navy);margin-bottom:8px">Annual Earnings Statement</div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:18px">Select a staff member and year on the left, then click Generate.</div>
+        <button class="btn green" onclick="renderLhdn()" style="font-size:13px;padding:9px 22px">Generate Statement</button>
+      </div>`;
+    }
+  }
+  else g("slip-area").innerHTML=`<div class="card"><p style="font-size:13px;color:var(--muted);padding:8px 0">Settings update the slip automatically.</p></div>`;
+}
+
+// -- Ema slip --------------------------------------------------
+function renderEmaSlip(e,s,period,mo,yr){
+  // Build toggle bar
+  const views=[
+    {v:"original",label:"📄 Ema Original"},
+    {v:"split",   label:"✂️ Ema (Split)"},
+    {v:"erzwan",  label:"👤 Erzwan"},
+  ];
+  const toggleBar='<div class="no-print" style="display:flex;gap:6px;margin-bottom:12px">'+
+    views.map(({v,label})=>{
+      const active=emaSlipView===v;
+      return '<button onclick="emaSlipView=\''+v+'\';renderEmaSlip(calcEma(),getSettings(),\''+period+'\',\''+mo+'\',\''+yr+'\')" '+
+        'style="flex:1;padding:8px 4px;border-radius:6px;border:1px solid '+(active?'var(--blue)':'var(--border)')+';'+
+        'background:'+(active?'var(--navy)':'#fff')+';color:'+(active?'#fff':'var(--text)')+';font-size:12px;font-weight:600;cursor:pointer">'+label+'</button>';
+    }).join('')+'</div>';
+  if(emaSlipView==="original") _renderEmaOriginal(e,s,period,mo,yr,toggleBar);
+  else if(emaSlipView==="split")    _renderEmaSplit(e,s,period,mo,yr,toggleBar);
+  else                               _renderErzwan(e,s,period,mo,yr,toggleBar);
+}
+
+function _slipFooter(approver,period,property,company){
+  return `<div class="slip-footer">
+    <div class="apv-block">
+      <div class="apv-icon">✓</div>
+      <div>
+        <div class="apv-title">Approved &amp; processed by ${approver}</div>
+        <div class="apv-sub">Salary approved for payment — ${period}</div>
+      </div>
+    </div>
+    <div style="text-align:right;font-size:10px;color:var(--faint)">
+      <div>${property} · ${company}</div>
+    </div>
+  </div>`;
+}
+
+// Slip 1: Ema Original (full basic, full incentives, full profit)
+function _renderEmaOriginal(e,s,period,mo,yr,toggleBar){
+  const ref="SR-"+yr+"-"+String(MONTHS.indexOf(mo)+1).padStart(2,"0")+"-EMA-ORIG";
+  const saved=loadMonth(yr,mo);
+  const rows=e.breakdown.map(b=>
+    `<tr><td>${b.label}</td><td>${b.val>0?`<span class="pos">${rm(b.val)}</span>`:`<span class="zero">—</span>`}</td></tr>`
+  ).join("");
+  const lainRow=e.lainNet!==0?`<tr class="cat-row"><td colspan="2">Lain-lain</td></tr>
+    <tr><td>${e.lainDesc}</td><td class="${e.lainNet<0?"neg-v":"pos"}">${e.lainNet<0?"−":""}${rm(Math.abs(e.lainNet))}</td></tr>`:"";
+  const lainSub=e.lainNet!==0?`<div class="sub-row"><span class="sl">${e.lainDesc}</span>
+    <span class="sv" style="color:${e.lainNet<0?"var(--danger)":"var(--green)"}">${e.lainNet<0?"−":"+"}${rm(Math.abs(e.lainNet))}</span></div>`:"";
+  g("slip-area").innerHTML=toggleBar+`
+<div class="slip">
+  <div class="slip-hdr">
+    <div>
+      <div class="slip-logo">${s.property} &nbsp;·&nbsp; ${s.company}</div>
+      <div class="slip-company">${s.fullname}</div>
+      <div class="slip-sub">Supervisor &nbsp;·&nbsp; ${s.ic?"IC: "+s.ic:"Staff"} &nbsp;·&nbsp; <em>Pre-split reference slip</em></div>
+      <div class="slip-badge" style="background:#37474F">ORIGINAL — PRE-SPLIT</div>
+    </div>
+    <div class="sright">
+      <div class="plbl">Pay period</div><div class="pval">${period}</div>
+      <div class="sref">Ref: ${ref}</div>
+      <div class="sref" style="color:${saved?"var(--green)":"var(--faint)"};margin-top:2px">${saved?"✓ Saved":"Not saved yet"}</div>
+    </div>
+  </div>
+  <div class="emp-band">
+    <div class="ef"><div class="el">Bank</div><div class="ev">${s.bank||"—"}</div></div>
+    <div class="ef"><div class="el">Type</div><div class="ev">${s.acctype}</div></div>
+    <div class="ef"><div class="el">Account No.</div><div class="ev acc">${s.accno||"—"}</div></div>
+    <div class="ef"><div class="el">Staff deduction</div><div class="ev" style="color:var(--danger)">−${rm(e.deduct)} → Erzwan</div></div>
+  </div>
+  <div class="earnings">
+    <div style="background:#fff8e1;border:1px solid #f0e0a0;border-radius:4px;padding:6px 10px;font-size:11px;color:#7B5E00;margin-bottom:10px">
+      This is the <strong>full pre-split reference</strong>. RM ${e.deduct.toFixed(2)} of the basic will be paid separately to Erzwan.
+    </div>
+    <table class="etable">
+      <thead><tr><th>Component</th><th style="text-align:right">Amount</th></tr></thead>
+      <tbody>
+        <tr class="cat-row"><td colspan="2">Fixed salary</td></tr>
+        <tr><td>Gaji Ema Basic Salary <span class="ftag">FIXED</span></td><td><strong>${rm(e.basic)}</strong></td></tr>
+        <tr class="cat-row"><td colspan="2">Variable incentives</td></tr>
+        ${rows}
+        <tr class="cat-row"><td colspan="2">Performance</td></tr>
+        <tr><td>5% Profit Sharing${isBeforeMay2026(yr,mo)?` <span style="font-size:10px;background:#f5f5f5;color:var(--faint);padding:1px 6px;border-radius:20px;margin-left:4px">N/A before May 2026</span>`:""}</td>
+          <td>${isBeforeMay2026(yr,mo)?`<span class="zero">—</span>`:e.profit>0?`<span class="pos">${rm(e.profit)}</span>`:`<span class="zero">—</span>`}</td></tr>
+        ${lainRow}
+      </tbody>
+    </table>
+  </div>
+  <div class="slip-tots">
+    <div class="sub-row"><span class="sl">Basic salary (full)</span><span class="sv">${rm(e.basic)}</span></div>
+    <div class="sub-row"><span class="sl">Total variable incentives</span><span class="sv">${rm(e.incs)}</span></div>
+    <div class="sub-row"><span class="sl">Profit sharing</span><span class="sv">${rm(e.profit)}</span></div>
+    ${lainSub}
+    <div class="grand-row" style="background:#37474F">
+      <span class="gl">GROSS PAY (pre-split) &nbsp;·&nbsp; ${period}</span>
+      <span class="gv">${rm(e.origTotal)}</span>
+    </div>
+  </div>
+  ${_slipFooter(s.approver,period,s.property,s.company)}
+</div>`;
+}
+
+// Slip 2: Ema Split (basic minus deduction, all incentives and profit)
+function _renderEmaSplit(e,s,period,mo,yr,toggleBar){
+  const ref="SR-"+yr+"-"+String(MONTHS.indexOf(mo)+1).padStart(2,"0")+"-EMA";
+  const saved=loadMonth(yr,mo);
+  const rows=e.breakdown.map(b=>
+    `<tr><td>${b.label}</td><td>${b.val>0?`<span class="pos">${rm(b.val)}</span>`:`<span class="zero">—</span>`}</td></tr>`
+  ).join("");
+  const lainRow=e.lainNet!==0?`<tr class="cat-row"><td colspan="2">Lain-lain</td></tr>
+    <tr><td>${e.lainDesc}</td><td class="${e.lainNet<0?"neg-v":"pos"}">${e.lainNet<0?"−":""}${rm(Math.abs(e.lainNet))}</td></tr>`:"";
+  const lainSub=e.lainNet!==0?`<div class="sub-row"><span class="sl">${e.lainDesc}</span>
+    <span class="sv" style="color:${e.lainNet<0?"var(--danger)":"var(--green)"}">${e.lainNet<0?"−":"+"}${rm(Math.abs(e.lainNet))}</span></div>`:"";
+  g("slip-area").innerHTML=toggleBar+`
+<div class="slip">
+  <div class="slip-hdr">
+    <div>
+      <div class="slip-logo">${s.property} &nbsp;·&nbsp; ${s.company}</div>
+      <div class="slip-company">${s.fullname}</div>
+      <div class="slip-sub">Supervisor &nbsp;·&nbsp; ${s.ic?"IC: "+s.ic:"Staff"}</div>
+      <div class="slip-badge">SALARY SLIP</div>
+    </div>
+    <div class="sright">
+      <div class="plbl">Pay period</div><div class="pval">${period}</div>
+      <div class="sref">Ref: ${ref}</div>
+      <div class="sref" style="color:${saved?"var(--green)":"var(--faint)"};margin-top:2px">${saved?"✓ Saved":"Not saved yet"}</div>
+    </div>
+  </div>
+  <div class="emp-band">
+    <div class="ef"><div class="el">Bank</div><div class="ev">${s.bank||"—"}</div></div>
+    <div class="ef"><div class="el">Type</div><div class="ev">${s.acctype}</div></div>
+    <div class="ef"><div class="el">Account No.</div><div class="ev acc">${s.accno||"—"}</div></div>
+    <div class="ef"><div class="el">Account holder</div><div class="ev">${s.fullname}</div></div>
+  </div>
+  <div class="earnings">
+    <table class="etable">
+      <thead><tr><th>Component</th><th style="text-align:right">Amount</th></tr></thead>
+      <tbody>
+        <tr class="cat-row"><td colspan="2">Fixed salary</td></tr>
+        <tr><td>Gaji Ema Basic Salary <span class="ftag">FIXED</span></td><td>${rm(e.basic)}</td></tr>
+        <tr><td style="padding-left:14px;color:var(--muted)">Less: Staff deduction (Erzwan)</td><td class="neg-v">−${rm(e.deduct)}</td></tr>
+        <tr><td style="padding-left:14px;font-weight:600">Net basic received</td><td><strong>${rm(e.emaBasic)}</strong></td></tr>
+        <tr class="cat-row"><td colspan="2">Variable incentives</td></tr>
+        ${rows}
+        <tr class="cat-row"><td colspan="2">Performance</td></tr>
+        <tr><td>5% Profit Sharing${isBeforeMay2026(yr,mo)?` <span style="font-size:10px;background:#f5f5f5;color:var(--faint);padding:1px 6px;border-radius:20px;margin-left:4px">N/A before May 2026</span>`:""}</td>
+          <td>${isBeforeMay2026(yr,mo)?`<span class="zero">—</span>`:e.profit>0?`<span class="pos">${rm(e.profit)}</span>`:`<span class="zero">—</span>`}</td></tr>
+        ${lainRow}
+      </tbody>
+    </table>
+  </div>
+  <div class="slip-tots">
+    <div class="sub-row"><span class="sl">Net basic (after deduction)</span><span class="sv">${rm(e.emaBasic)}</span></div>
+    <div class="sub-row"><span class="sl">Total variable incentives</span><span class="sv">${rm(e.incs)}</span></div>
+    <div class="sub-row"><span class="sl">Profit sharing</span><span class="sv">${rm(e.profit)}</span></div>
+    ${lainSub}
+    <div class="grand-row">
+      <span class="gl">NET TAKE-HOME PAY &nbsp;·&nbsp; ${period}</span>
+      <span class="gv">${rm(e.emaTotal)}</span>
+    </div>
+  </div>
+  ${_slipFooter(s.approver,period,s.property,s.company)}
+</div>`;
+}
+
+// Slip 3: Erzwan (fixed deduction from Ema's basic)
+function _renderErzwan(e,s,period,mo,yr,toggleBar){
+  const ref="SR-"+yr+"-"+String(MONTHS.indexOf(mo)+1).padStart(2,"0")+"-ERZWAN";
+  const saved=localStorage.getItem("sr_erzwan_"+storeKey(yr,mo));
+  const badge="#534AB7",bg="#EEEDFE",bdr="#7F77DD",txt="#26215C";
+  g("slip-area").innerHTML=toggleBar+`
+<div class="slip" style="border-top:3px solid ${badge}">
+  <div class="slip-hdr" style="background:${bg};border-bottom-color:${bdr}">
+    <div>
+      <div class="slip-logo" style="color:${txt}">${s.property} · ${s.company}</div>
+      <div class="slip-company" style="color:${txt}">Mohd Erzwan bin Esmawi</div>
+      <div class="slip-sub" style="color:${badge}">Staff &nbsp;·&nbsp; IC: 991004-12-6111</div>
+      <div class="slip-badge" style="background:${badge}">SALARY SLIP</div>
+    </div>
+    <div class="sright">
+      <div class="plbl" style="color:${txt}">Pay period</div>
+      <div class="pval" style="color:${txt}">${period}</div>
+      <div class="sref" style="color:${badge}">Ref: ${ref}</div>
+      <div class="sref" style="color:${saved?"var(--green)":"var(--faint)"};margin-top:2px">${saved?"✓ Saved":"Save via Ema's Slip tab"}</div>
+    </div>
+  </div>
+  <div class="emp-band" style="background:#f4f3ff">
+    <div class="ef"><div class="el">IC No.</div><div class="ev">991004-12-6111</div></div>
+    <div class="ef"><div class="el">Role</div><div class="ev">Staff</div></div>
+    <div class="ef"><div class="el">Supervisor</div><div class="ev">Hazemah (Ema)</div></div>
+    <div class="ef"><div class="el">Payment type</div><div class="ev" style="color:${badge}">Fixed from Ema's basic</div></div>
+  </div>
+  <div class="earnings">
+    <table class="etable">
+      <thead><tr><th>Component</th><th style="text-align:right">Amount</th></tr></thead>
+      <tbody>
+        <tr class="cat-row"><td colspan="2">Salary</td></tr>
+        <tr><td>Basic salary <span class="ftag">FIXED</span><br>
+          <small style="color:var(--faint)">Deducted from Ema's basic (RM ${e.basic.toFixed(2)} − RM ${e.emaBasic.toFixed(2)})</small></td>
+          <td><strong>${rm(e.deduct)}</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="slip-tots">
+    <div class="sub-row"><span class="sl">Basic salary</span><span class="sv">${rm(e.deduct)}</span></div>
+    <div class="grand-row" style="background:${badge}">
+      <span class="gl">NET TAKE-HOME PAY &nbsp;·&nbsp; ${period}</span>
+      <span class="gv">${rm(e.deduct)}</span>
+    </div>
+  </div>
+  <div class="slip-footer" style="background:#fafaff">
+    <div class="apv-block">
+      <div class="apv-icon" style="background:${badge}">✓</div>
+      <div>
+        <div class="apv-title" style="color:${badge}">Approved by ${s.approver}</div>
+        <div class="apv-sub">${period}</div>
+      </div>
+    </div>
+    <div style="text-align:right;font-size:10px;color:var(--faint)">
+      <div>${s.property} · ${s.company}</div>
+      <div style="margin-top:2px">Ref: ${ref}</div>
+    </div>
+  </div>
+</div>`;
+}
+
+// -- Yearly
+
+// -- Yearly ----------------------------------------------------
+function renderYearly(){
+  const yr=gs("sel-yr-view"),s=getSettings();
+  const saved=MONTHS.map(mo=>({mo,d:loadMonth(yr,mo)})).filter(x=>x.d);
+  if(saved.length===0){
+    g("yr-summary").innerHTML=`<p style="font-size:12px;color:var(--faint);padding:8px 0">No records for ${yr} yet. Go to Ema's Slip, fill each month, click Save.</p>`;
+    g("slip-area").innerHTML=`<div class="card"><div class="no-data">📅<br><br>No records for ${yr}.<br><span style="font-size:11px;color:var(--faint)">Fill each month in Ema's Slip and click Save.</span></div></div>`;
+    return;
+  }
+  const tot={basic:0,profit:0,lainNet:0,total:0};INCENTIVES.forEach(i=>tot[i.id]=0);
+  saved.forEach(({d})=>{
+    tot.basic+=+d.basic||0;tot.profit+=+d.profit||0;tot.lainNet+=+d.lainNet||0;tot.total+=+d.total||0;
+    INCENTIVES.forEach(i=>tot[i.id]+=+d[i.id]||0);
+  });
+  g("yr-summary").innerHTML=`
+    <div style="margin-top:8px;background:var(--blue-bg);border-radius:var(--radius-sm);padding:10px 12px;border:1px solid var(--blue-mid)">
+      <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px">${yr} — ${saved.length} month${saved.length>1?"s":""} saved</div>
+      ${[["Basic salary",tot.basic],["Variable incentives",INCENTIVES.reduce((s,i)=>s+tot[i.id],0)],["Profit sharing",tot.profit],["Lain-lain",tot.lainNet]].map(([l,v])=>
+        `<div style="font-size:11px;color:var(--muted);display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px dashed #cde">
+          <span>${l}</span><span style="font-weight:600;color:${v<0?"var(--danger)":"inherit"}">${v<0?"−":""}${rm(Math.abs(v))}</span>
+        </div>`).join("")}
+      <div style="display:flex;justify-content:space-between;margin-top:8px;padding-top:6px;border-top:1px solid var(--blue-mid)">
+        <span style="font-size:12px;font-weight:600;color:var(--blue)">Total ${yr}</span>
+        <span style="font-size:14px;font-weight:700;color:var(--blue)">${rm(tot.total)}</span>
+      </div>
+    </div>`;
+  const bodyRows=MONTHS.map(mo=>{
+    const d=loadMonth(yr,mo);
+    if(!d)return`<tr><td>${mo}</td>${Array(INCENTIVES.length+4).fill(`<td class="zc">—</td>`).join("")}</tr>`;
+    const ln=+d.lainNet||0;
+    return`<tr><td>${mo}</td>
+      <td>${rm(d.basic||0)}</td>
+      ${INCENTIVES.map(i=>`<td>${(+d[i.id]||0)>0?rm(+d[i.id]):`<span class="zc">—</span>`}</td>`).join("")}
+      <td>${(+d.profit||0)>0?rm(+d.profit):`<span class="zc">—</span>`}</td>
+      <td style="color:${ln<0?"var(--danger)":ln>0?"var(--green)":"inherit"}">${ln!==0?(ln<0?"−":"+")+rm(Math.abs(ln)):`<span class="zc">—</span>`}</td>
+      <td style="font-weight:700;color:var(--blue)">${rm(+d.total||0)}</td>
+    </tr>`;
+  }).join("");
+  g("slip-area").innerHTML=`
+<div class="card">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+    <div>
+      <div style="font-size:15px;font-weight:700;color:var(--navy)">${s.fullname} — ${yr} Annual Statement</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:2px">${s.property} · ${s.company}</div>
+    </div>
+    <div style="text-align:right;font-size:11px;color:var(--faint)">Bank: ${s.bank||"—"}<br>Acc: ${s.accno||"—"}</div>
+  </div>
+  <div class="yr-wrap">
+    <table class="yrtbl">
+      <thead><tr>
+        <th style="text-align:left">Month</th><th>Basic</th>
+        ${INCENTIVES.map(i=>`<th>${i.label.replace(" Incentive","").replace(" Comments","")}</th>`).join("")}
+        <th>Profit%</th><th>Lain-lain</th><th>TOTAL</th>
+      </tr></thead>
+      <tbody>${bodyRows}</tbody>
+      <tfoot><tr class="tot-row">
+        <td>TOTAL ${yr}</td><td>${rm(tot.basic)}</td>
+        ${INCENTIVES.map(i=>`<td>${tot[i.id]>0?rm(tot[i.id]):"—"}</td>`).join("")}
+        <td>${tot.profit>0?rm(tot.profit):"—"}</td>
+        <td style="color:${tot.lainNet<0?"#ff8a80":tot.lainNet>0?"#a5d6a7":"inherit"}">${tot.lainNet!==0?(tot.lainNet<0?"−":"+")+rm(Math.abs(tot.lainNet)):"—"}</td>
+        <td>${rm(tot.total)}</td>
+      </tr></tfoot>
+    </table>
+  </div>
+</div>
+<div class="no-print" style="margin-top:10px">
+  <button class="btn primary" onclick="window.print()">🖨 Print / Save PDF</button>
+</div>`;
+}
+
+// -- Other staff ------------------------------------------------
+function renderOtherTab(c,s,mo,yr){
+  const period=mo+" "+yr;
+  g("pool-rows").innerHTML=[
+    ["Net Pool",c.netPool<0?"−"+rm(Math.abs(c.netPool)):rm(c.netPool),c.netPool<0?"neg":"pos"],
+    ["Less: AZR (incl. 2% PS)","−"+rm(c.azrTotal),""],
+    ["Baki Pool (NEH base)",""+( c.baki<0?"−"+rm(Math.abs(c.baki)):rm(c.baki)),c.baki<0?"neg":"pos"],
+  ].map(([l,v,cl])=>`<div class="pool-row"><span class="pl">${l}</span><span class="pv ${cl}">${v}</span></div>`).join("");
+  const allStaffCost=calcEma().total+c.azrTotal+c.irTotal+c.nehTotal+c.hudaTotal;
+  const netProfit=gv("inp-gross")-gv("inp-ops")-allStaffCost;
+  const tots={AZR:c.azrTotal,IR:c.irTotal,NEH:c.nehTotal,HUDA:c.hudaTotal,PL:netProfit};
+  g("staff-pills").innerHTML=OTHER_STAFF.map(st=>
+    `<button class="spill${activeOtherSlip===st.key?" active":""}"
+      style="${activeOtherSlip===st.key?`background:${st.badge};border-color:${st.badge};color:#fff`:""}"
+      onclick="selectOther('${st.key}')">${st.key} · ${rm(tots[st.key])}</button>`).join("");
+  if(activeOtherSlip) renderOtherSlip(activeOtherSlip,c,s,period,mo,yr);
+  else g("slip-area").innerHTML=`<div style="text-align:center;padding:48px 0;color:var(--faint);font-size:13px">Select a staff member above</div>`;
+}
+
+function renderOtherSlip(key,c,s,period,mo,yr){
+  const st=OTHER_STAFF.find(x=>x.key===key);
+  const tots={AZR:c.azrTotal,IR:c.irTotal,NEH:c.nehTotal,HUDA:c.hudaTotal};
+  const ref="SR-"+yr+"-"+String(MONTHS.indexOf(mo)+1).padStart(2,"0")+"-"+key;
+  let rows="",warn="";
+  // Staff not on payroll before May 2026
+  if(key!=="PL"&&isBeforeMay2026(yr,mo)){
+    warn=`<div style="padding:10px 12px;background:#fff3e0;border-radius:6px;font-size:12px;color:#e65100;margin-bottom:10px;border-left:3px solid #ff9800">
+      <strong>${key}</strong> was not on the StayRehat payroll before May 2026. Salary = RM 0.00 for this period.</div>`;
+  }
+  if(key==="PL"){
+    const allStaffCost2=calcEma().total+c.azrTotal+c.irTotal+c.nehTotal;
+    const np2=gv("inp-gross")-gv("inp-ops")-allStaffCost2;
+    const isPL=np2>=0;
+    g("slip-area").innerHTML=`
+<div class="slip" style="border-top:3px solid #37474F">
+  <div class="slip-hdr" style="background:#ECEFF1;border-bottom:2px solid #90A4AE">
+    <div>
+      <div class="slip-logo" style="color:#263238">${s.property} · ${s.company}</div>
+      <div class="slip-company" style="color:#263238">Monthly Profit &amp; Loss</div>
+      <div class="slip-sub" style="color:#546E7A">Business performance after all deductions</div>
+      <div class="slip-badge" style="background:#37474F">P &amp; L SUMMARY</div>
+    </div>
+    <div class="sright"><div class="plbl" style="color:#263238">Period</div>
+      <div class="pval" style="color:#263238">${period}</div></div>
+  </div>
+  <div class="earnings">
+    <table class="etable">
+      <thead><tr><th>Item</th><th style="text-align:right">Amount</th></tr></thead>
+      <tbody>
+        <tr class="cat-row"><td colspan="2">Income</td></tr>
+        <tr><td>Gross rental income</td><td><strong>${rm(gv("inp-gross"))}</strong></td></tr>
+        <tr class="cat-row"><td colspan="2">Expenses</td></tr>
+        <tr><td style="padding-left:12px;color:var(--muted)">Operating expenses</td><td class="neg-v">−${rm(gv("inp-ops"))}</td></tr>
+        <tr class="cat-row"><td colspan="2">Staff costs</td></tr>
+        <tr><td style="padding-left:12px;color:var(--muted)">Hazemah — Supervisor</td><td class="neg-v">−${rm(calcEma().total)}</td></tr>
+        <tr><td style="padding-left:12px;color:var(--muted)">AZR — Marketing</td><td class="neg-v">−${rm(c.azrTotal)}</td></tr>
+        <tr><td style="padding-left:12px;color:var(--muted)">IR — General Manager</td><td class="neg-v">−${rm(c.irTotal)}</td></tr>
+        <tr><td style="padding-left:12px;color:var(--muted)">NEH — Financial Manager</td><td class="neg-v">−${rm(c.nehTotal)}</td></tr>
+        <tr><td style="padding-left:12px;color:var(--muted)">Huda — Staff</td><td class="neg-v">−${rm(c.hudaTotal)}</td></tr>
+        <tr><td style="font-size:11px;color:var(--faint)">Total staff costs</td><td style="font-size:11px;color:var(--danger);text-align:right">−${rm(allStaffCost2)}</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="slip-tots">
+    <div class="sub-row"><span class="sl">Gross income</span><span class="sv">${rm(gv("inp-gross"))}</span></div>
+    <div class="sub-row"><span class="sl">Total expenses + staff</span><span class="sv" style="color:var(--danger)">−${rm(gv("inp-ops")+allStaffCost2)}</span></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;border-radius:var(--radius-sm);padding:10px 14px;margin-top:8px;background:${isPL?"#1b5e20":"#b71c1c"}">
+      <span style="font-size:13px;color:rgba(255,255,255,0.75)">${isPL?"NET PROFIT":"NET LOSS"} — ${period}</span>
+      <span style="font-size:19px;font-weight:700;color:#fff">${isPL?"":"-"}${rm(Math.abs(np2))}</span>
+    </div>
+  </div>
+</div>
+<div class="no-print" style="margin-top:10px"><button class="btn primary" onclick="window.print()">🖨 Print</button></div>`;
+    return;
+  }
+  if(key==="AZR"){
+    if(isBeforeMay2026(yr,mo)){
+      rows=`<tr><td colspan="2" style="color:var(--faint);font-size:12px;padding:8px 0">Not on payroll before May 2026 — all components RM 0.00</td></tr>`;
+    } else {
+      rows=`<tr><td>Base Salary <span class="ftag">FIXED</span></td><td><strong>${rm(500)}</strong></td></tr>
+        <tr class="cat-row"><td colspan="2">Performance</td></tr>
+        <tr><td>Component A — Message Bonus<br><small style="color:var(--faint)">(${c.msgsMonth} msgs − 300) × RM0.50</small></td>
+          <td>${c.azrA>0?`<span class="pos">${rm(c.azrA)}</span>`:`<span class="zero">—</span>`}</td></tr>
+        <tr><td>Component B — Room Booking Bonus<br><small style="color:var(--faint)">${gv("inp-azrrooms")} rooms × RM1.00</small></td>
+          <td>${c.azrB>0?`<span class="pos">${rm(c.azrB)}</span>`:`<span class="zero">—</span>`}</td></tr>
+        <tr><td>Profit Sharing (2% × Net Pool)<br><small style="color:var(--faint)">Net Pool: ${c.netPool>=0?rm(c.netPool):"−"+rm(Math.abs(c.netPool))}</small></td>
+          <td>${c.azrProfit>0?`<span class="pos">${rm(c.azrProfit)}</span>`:`<span class="zero">—</span>`}</td></tr>`;
+    }
+  }else if(key==="IR"){
+    if(isBeforeMay2026(yr,mo)){
+      rows=`<tr><td colspan="2" style="color:var(--faint);font-size:12px;padding:8px 0">Not on payroll before May 2026 — all components RM 0.00</td></tr>`;
+    } else {
+      if(c.irShare<0)warn=`<div style="padding:7px 10px;background:var(--warning-bg);border-radius:4px;font-size:11px;color:var(--warning);margin-bottom:8px;border-left:3px solid #e6c300">Net Pool negative — profit share RM0, base only.</div>`;
+      rows=`<tr><td>Base Salary <span class="ftag">FIXED</span></td><td><strong>${rm(100)}</strong></td></tr>
+        <tr class="cat-row"><td colspan="2">Performance</td></tr>
+        <tr><td>Profit Sharing (13% × Net Pool)<br><small style="color:var(--faint)">Net Pool: ${c.netPool>=0?rm(c.netPool):"−"+rm(Math.abs(c.netPool))}</small></td>
+          <td>${c.irShare>0?`<span class="pos">${rm(c.irShare)}</span>`:`<span class="zero">—</span>`}</td></tr>`;
+    }
+  }else if(key==="HUDA"){
+    if(isBeforeMay2026(yr,mo)){
+      rows=`<tr><td colspan="2" style="color:var(--faint);font-size:12px;padding:8px 0">Not on payroll before May 2026 — all components RM 0.00</td></tr>`;
+    } else {
+      if(c.hudaShare<0)warn=`<div style="padding:7px 10px;background:var(--warning-bg);border-radius:4px;font-size:11px;color:var(--warning);margin-bottom:8px;border-left:3px solid #e6c300">Net Pool negative — profit share RM0, base only.</div>`;
+      rows=`<tr><td>Base Salary <span class="ftag">FIXED</span></td><td><strong>${rm(100)}</strong></td></tr>
+        <tr class="cat-row"><td colspan="2">Performance</td></tr>
+        <tr><td>Profit Sharing (12% × Net Pool)<br><small style="color:var(--faint)">Net Pool: ${c.netPool>=0?rm(c.netPool):"−"+rm(Math.abs(c.netPool))}</small></td>
+          <td>${c.hudaShare>0?`<span class="pos">${rm(c.hudaShare)}</span>`:`<span class="zero">—</span>`}</td></tr>`;
+    }
+  }else if(key==="NEH"){
+    if(isBeforeMay2026(yr,mo)){
+      rows=`<tr><td colspan="2" style="color:var(--faint);font-size:12px;padding:8px 0">Not on payroll before May 2026 — all components RM 0.00</td></tr>`;
+    } else {
+      if(c.nehShare<0)warn=`<div style="padding:7px 10px;background:var(--warning-bg);border-radius:4px;font-size:11px;color:var(--warning);margin-bottom:8px;border-left:3px solid #e6c300">Baki Pool negative — management share RM0.</div>`;
+      rows=`<tr><td>Management Share (15% × Baki Pool)<br><small style="color:var(--faint)">Baki Pool: ${c.baki<0?"−"+rm(Math.abs(c.baki)):rm(c.baki)}</small></td>
+          <td><strong>${rm(Math.max(0,c.nehShare))}</strong></td></tr>
+        <tr><td colspan="2" style="font-size:10px;color:var(--faint);padding-top:4px">+RM150 special bonus — add manually after SJ approval</td></tr>`;
+    }
+  }
+  g("slip-area").innerHTML=`
+<div class="slip" style="border-top:3px solid ${st.badge}">
+  <div class="slip-hdr" style="background:${st.bg};border-bottom-color:${st.border}">
+    <div>
+      <div class="slip-logo" style="color:${st.text}">${s.property} · ${s.company}</div>
+      <div class="slip-company" style="color:${st.text}">${st.name}</div>
+      <div class="slip-sub" style="color:${st.badge}">${st.role}</div>
+      <div class="slip-badge" style="background:${st.badge}">SALARY SLIP</div>
+    </div>
+    <div class="sright"><div class="plbl" style="color:${st.text}">Pay period</div>
+      <div class="pval" style="color:${st.text}">${period}</div>
+      <div class="sref" style="color:${st.badge}">Ref: ${ref}</div></div>
+  </div>
+  <div class="earnings">${warn}<table class="etable"><thead><tr><th>Component</th><th style="text-align:right">Amount</th></tr></thead><tbody>${rows}</tbody></table></div>
+  <div class="slip-tots"><div class="grand-row" style="background:${st.badge}"><span class="gl">NET PAY · ${period}</span><span class="gv">${rm(tots[key])}</span></div></div>
+  <div class="slip-footer">
+    <div class="apv-block">
+      <div class="apv-icon" style="background:${st.badge}">✓</div>
+      <div><div class="apv-title" style="color:${st.badge}">Approved by ${s.approver}</div>
+      <div class="apv-sub">${period}</div></div>
+    </div>
+  </div>
+</div>
+<div class="no-print" style="margin-top:10px"><button class="btn primary" onclick="window.print()">🖨 Print</button></div>`;
+}
+
+function renderLhdn(){
+  const yr=gs("sel-lhdn-yr"), staffKey2=gs("sel-lhdn-staff"), s=getSettings();
+  const names={Hazemah:s.fullname||"Hazemah bte Maksud",AZR:"AZR",IR:"IR",NEH:"NEH",Erzwan:"Mohd Erzwan bin Esmawi",HUDA:"Huda"};
+  const roles={Hazemah:"Supervisor",AZR:"Marketing Manager",IR:"General Manager",NEH:"Financial Manager",Erzwan:"Staff",HUDA:"Staff"};
+  const name=names[staffKey2], role=roles[staffKey2];
+
+  // Collect monthly records
+  const rows=MONTHS.map(mo=>{
+    let d=null;
+    if(staffKey2==="Hazemah"){d=loadMonth(yr,mo);}
+    else if(staffKey2==="Erzwan"){const raw=localStorage.getItem("sr_erzwan_"+storeKey(yr,mo));d=raw?JSON.parse(raw):null;}
+    else if(staffKey2==="HUDA"){d=loadStaffMonth("HUDA",yr,mo);}
+    else{d=loadStaffMonth(staffKey2,yr,mo);}
+    return{mo,d};
+  });
+  const saved=rows.filter(r=>r.d);
+
+  if(saved.length===0){
+    g("slip-area").innerHTML=`<div class="card"><div class="no-data">📄<br><br>No records for ${name} in ${yr}.<br>
+      <span style="font-size:11px;color:var(--faint)">Save each month using 💾 Save in Ema's Slip / Other Staff tabs.</span></div></div>`;
+    return;
+  }
+
+  // Build column headers per staff type
+  let colHeaders=[], getRowCols, totInit={};
+  if(staffKey2==="Hazemah"){
+    colHeaders=["Basic",...INCENTIVES.map(i=>i.label.replace(" Incentive","").replace(" Comments","")),"Profit%","Lain-lain","TOTAL"];
+    totInit={basic:0,profit:0,lainNet:0,total:0};INCENTIVES.forEach(i=>totInit[i.id]=0);
+    getRowCols=d=>{
+      totInit.basic+=+d.basic||0;totInit.profit+=+d.profit||0;totInit.lainNet+=+d.lainNet||0;totInit.total+=+d.total||0;
+      INCENTIVES.forEach(i=>totInit[i.id]+=+d[i.id]||0);
+      const ln=+d.lainNet||0;
+      return[rm(d.basic||0),
+        ...INCENTIVES.map(i=>(+d[i.id]||0)>0?rm(+d[i.id]):`<span class="zc">—</span>`),
+        (+d.profit||0)>0?rm(+d.profit):`<span class="zc">—</span>`,
+        ln!==0?(ln<0?"−":"+")+rm(Math.abs(ln)):`<span class="zc">—</span>`,
+        `<strong>${rm(+d.total||0)}</strong>`];
+    };
+  } else if(staffKey2==="AZR"){
+    colHeaders=["Base Salary","Msg Bonus (A)","Room Bonus (B)","Profit Share (2%)","TOTAL"];
+    totInit={base:0,compA:0,compB:0,profit:0,total:0};
+    getRowCols=d=>{totInit.base+=500;totInit.compA+=+d.compA||0;totInit.compB+=+d.compB||0;totInit.profit+=+d.profit||0;totInit.total+=+d.total||0;
+      return[rm(500),(+d.compA||0)>0?rm(+d.compA):`<span class="zc">—</span>`,
+        (+d.compB||0)>0?rm(+d.compB):`<span class="zc">—</span>`,
+        (+d.profit||0)>0?rm(+d.profit):`<span class="zc">—</span>`,`<strong>${rm(+d.total||0)}</strong>`];};
+  } else if(staffKey2==="Erzwan"){
+    colHeaders=["Basic (from Ema)","TOTAL"];
+    totInit={amount:0,total:0};
+    getRowCols=d=>{totInit.amount+=+d.amount||0;totInit.total+=+d.total||0;
+      return[rm(+d.amount||0),`<strong>${rm(+d.total||0)}</strong>`];};
+  } else if(staffKey2==="HUDA"){
+    colHeaders=["Base Salary","Profit Share (12%)","TOTAL"];
+    totInit={base:0,mgmtShare:0,total:0};
+    getRowCols=d=>{totInit.base+=100;totInit.mgmtShare+=+d.mgmtShare||0;totInit.total+=+d.total||0;
+      return[rm(100),(+d.mgmtShare||0)>0?rm(+d.mgmtShare):`<span class="zc">—</span>`,`<strong>${rm(+d.total||0)}</strong>`];};
+  } else {
+colHeaders=staffKey2==="NEH"?["Management Share (15% Baki)","TOTAL"]:["Base Salary","Profit Share (13%)","TOTAL"];
+    if(staffKey2==="NEH"){
+      totInit={mgmtShare:0,total:0};
+      getRowCols=d=>{totInit.mgmtShare+=+d.mgmtShare||0;totInit.total+=+d.total||0;
+        return[rm(+d.mgmtShare||0),`<strong>${rm(+d.total||0)}</strong>`];};
+    } else {
+      totInit={base:0,mgmtShare:0,total:0};
+      getRowCols=d=>{totInit.base+=100;totInit.mgmtShare+=+d.mgmtShare||0;totInit.total+=+d.total||0;
+        return[rm(100),(+d.mgmtShare||0)>0?rm(+d.mgmtShare):`<span class="zc">—</span>`,`<strong>${rm(+d.total||0)}</strong>`];};
+    }
+  }
+
+  const bodyRows=rows.map(({mo,d})=>{
+    // Blank out Jan–Apr 2026 for all staff — payroll starts May 2026
+    const blankMonth=(yr==="2026"&&MONTHS.indexOf(mo)<4);
+    if(!d||blankMonth)return`<tr><td style="color:var(--faint)">${mo}</td>${colHeaders.map(()=>`<td class="zc">—</td>`).join("")}</tr>`;
+    const cols=getRowCols(d);
+    return`<tr><td>${mo}</td>${cols.map(c=>`<td>${c}</td>`).join("")}</tr>`;
+  }).join("");
+
+  let totCols=[];
+  if(staffKey2==="Hazemah"){
+    totCols=[rm(totInit.basic),...INCENTIVES.map(i=>totInit[i.id]>0?rm(totInit[i.id]):"—"),
+      totInit.profit>0?rm(totInit.profit):"—",
+      totInit.lainNet!==0?(totInit.lainNet<0?"−":"+")+rm(Math.abs(totInit.lainNet)):"—",
+      `<strong>${rm(totInit.total)}</strong>`];
+  } else if(staffKey2==="AZR"){
+    totCols=[rm(totInit.base),rm(totInit.compA),rm(totInit.compB),rm(totInit.profit),`<strong>${rm(totInit.total)}</strong>`];
+  } else if(staffKey2==="Erzwan"){
+    totCols=[rm(totInit.amount),`<strong>${rm(totInit.total)}</strong>`];
+  } else if(staffKey2==="HUDA"){
+    totCols=[rm(totInit.base),rm(totInit.mgmtShare),`<strong>${rm(totInit.total)}</strong>`];
+  } else {
+    totCols=staffKey2==="NEH"?[rm(totInit.mgmtShare),`<strong>${rm(totInit.total)}</strong>`]:[rm(totInit.base),rm(totInit.mgmtShare),`<strong>${rm(totInit.total)}</strong>`];
+  }
+
+  // Build a note about the May 2026 cutoff for this year's statement
+  const cutoffNote=(yr==="2026"&&staffKey2!=="Hazemah")
+    ?`<div style="margin:0 20px 0;padding:8px 12px;background:#fff3e0;border-left:3px solid #ff9800;font-size:11px;color:#e65100">
+        <strong>Note:</strong> ${name} joined the payroll from <strong>May 2026</strong> only. Months January–April 2026 show RM 0.00.
+      </div>`
+    :(yr==="2026"&&staffKey2==="Hazemah")
+    ?`<div style="margin:0 20px 0;padding:8px 12px;background:#e8f5e9;border-left:3px solid #4caf50;font-size:11px;color:#1b5e20">
+        <strong>Note:</strong> 5% Profit Sharing applies from <strong>May 2026</strong> only. Earlier months show RM 0.00 for profit sharing.
+      </div>`
+    :"";
+  g("slip-area").innerHTML=`
+<div class="slip" style="border:none;box-shadow:none">
+  <div style="padding:18px 20px;background:var(--navy);border-radius:var(--radius) var(--radius) 0 0">
+    <div style="font-size:10px;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:4px">${s.company} · ${s.property}</div>
+    <div style="font-size:16px;font-weight:700;color:#fff">Annual Earnings Statement</div>
+    <div style="font-size:12px;color:rgba(255,255,255,0.65);margin-top:2px">For LHDN EA Form — Year of Assessment ${yr}</div>
+  </div>
+  ${cutoffNote}
+  <div style="padding:14px 20px;background:#f8faff;border:1px solid var(--border);display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+    <div class="ef"><div class="el">Employee</div><div class="ev">${name}</div></div>
+    <div class="ef"><div class="el">Designation</div><div class="ev">${role}</div></div>
+    <div class="ef"><div class="el">Employer</div><div class="ev">${s.company}</div></div>
+    <div class="ef"><div class="el">IC No.</div><div class="ev acc">${staffKey2==="Hazemah"?(s.ic||"— add in Settings"):"—"}</div></div>
+    <div class="ef"><div class="el">Period</div><div class="ev">Jan–Dec ${yr}</div></div>
+    <div class="ef"><div class="el">Months recorded</div><div class="ev">${saved.length} of 12</div></div>
+  </div>
+  <div class="earnings" style="padding:14px 20px">
+    <div class="yr-wrap">
+      <table class="yrtbl">
+        <thead><tr><th style="text-align:left">Month</th>${colHeaders.map(h=>`<th>${h}</th>`).join("")}</tr></thead>
+        <tbody>${bodyRows}</tbody>
+        <tfoot><tr class="tot-row"><td>ANNUAL TOTAL</td>${totCols.map(c=>`<td>${c}</td>`).join("")}</tr></tfoot>
+      </table>
+    </div>
+  </div>
+  <div style="padding:12px 20px;border-top:1px solid var(--border);background:#fafcff;display:flex;justify-content:space-between;align-items:center">
+    <div style="font-size:11px;color:var(--muted)">Prepared by: ${s.processor} &nbsp;·&nbsp; ${s.property}</div>
+    <div style="text-align:right">
+      <div style="font-size:11px;color:var(--faint)">Annual gross earnings</div>
+      <div style="font-size:18px;font-weight:700;color:var(--navy)">${rm(totInit.total)}</div>
+    </div>
+  </div>
+</div>
+<div class="no-print" style="margin-top:10px;display:flex;gap:8px">
+  <button class="btn primary" onclick="window.print()">🖨 Print for LHDN</button>
+</div>`;
+}
+
+function selectOther(k){activeOtherSlip=activeOtherSlip===k?null:k;render();}
+function clearForm(){INCENTIVES.forEach(i=>{g("inp-"+i.id).value=0});g("inp-lain-amt").value=0;g("inp-lain-desc").value="";render();}
+
+// -- Init ------------------------------------------------------
+const now=new Date();
+g("sel-month").value=MONTHS[now.getMonth()];
+const y0=now.getFullYear();if(y0>=2023&&y0<=2027)g("sel-year").value=y0;
+const sv=loadSettings();
+if(sv){["fullname","ic","bank","accno","acctype","company","property","approver","processor"].forEach(k=>{if(g("set-"+k)&&sv[k]!=null)g("set-"+k).value=sv[k];});}
+document.querySelectorAll("input,select").forEach(el=>el.addEventListener("input",render));
+
+function loadSavedBasic(){
+  const mo=gs("sel-month"),yr=gs("sel-year"),d=loadMonth(yr,mo);
+  if(d&&d.basic&&g("inp-basic")) g("inp-basic").value=d.basic;
+}
+g("sel-month").addEventListener("change",loadSavedBasic);
+g("sel-year").addEventListener("change",loadSavedBasic);
+render();
+</script>
+</body>
+</html>
